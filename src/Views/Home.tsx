@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Grid, GridItem, Heading, SimpleGrid, Stack, Stat, StatLabel, StatNumber, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Grid, GridItem, HStack, Heading, List, ListIcon, ListItem, SimpleGrid, Stack, Stat, StatLabel, StatNumber, Tag, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import { TAGNAME } from "../App";
 import Logo from '../Images/logo.webp';
 import { Player } from '@lordicon/react';
@@ -6,6 +6,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { FiServer } from 'react-icons/fi'
 import { CgPerformance } from "react-icons/cg";
 import { IoSearch } from "react-icons/io5";
+import { FaCheckCircle } from "react-icons/fa";
 
 const ArrowDownIcon = require('./../Assets/LordIcons/system-solid-12-arrow-down.json')
 
@@ -28,10 +29,12 @@ export default function Home() {
                             <img className={TAGNAME + "-home-banner-center__logo"} src={Logo} alt="INTERACTIVE" />
                         </GridItem>
                         <GridItem fontSize={24} color={'white'} textAlign={"center"}>
-                            innowacyjne aplikacje internetowe na zamówienie
+                            <Text fontSize={'xl'} color={'white.400'}>
+                                innowacyjne aplikacje internetowe na zamówienie
+                            </Text>
                         </GridItem>
                         <GridItem display={'flex'} justifyContent={'center'}>
-                            <div className={TAGNAME + '-home-banner-arrow-down'}
+                            <div className={TAGNAME + '-home-arrow-down'}
                                 onMouseEnter={() => setIsIconHover(true)}
                                 onMouseLeave={() => setIsIconHover(false)}
                                 onClick={() => document.getElementsByClassName("ie-home-feature")[0].scrollIntoView({ behavior: "smooth" })}
@@ -49,7 +52,34 @@ export default function Home() {
                 <GridItem className={TAGNAME + "-home-banner-right"}></GridItem>
             </Grid>
             <Box className={TAGNAME + "-home-feature"} bg={'black'}>
-                <Container zIndex={10}>
+                <Features />
+            </Box>
+            <Box className={TAGNAME+"-home-hero"} zIndex={-1}>
+                <BasicStatistics />
+                <div className={TAGNAME + '-home-arrow-down'}
+                                onMouseEnter={() => setIsIconHover(true)}
+                                onMouseLeave={() => setIsIconHover(false)}
+                                onClick={() => document.getElementsByClassName("ie-home-offer")[0].scrollIntoView({ behavior: "smooth" })}
+                                style={{display: 'flex', justifyContent: 'center', paddingBottom: 20, zIndex: '1'}}>
+                                <Player
+                                    ref={playerRef}
+                                    icon={ArrowDownIcon}
+                                    size={50}
+                                    colorize="true"
+                                    renderMode="SOFTWARE"
+                                />
+                            </div>
+            </Box>
+            <Box className={TAGNAME + "-home-offer"}>
+                <ThreeTierPricing />
+            </Box>
+        </Box>
+    )
+}
+
+function Features() {
+    return (
+        <Container zIndex={10}>
                     <Stack direction={{ base: 'column', lg: 'row' }} justify={"center"}>
                         <Stack
                             color={'gray.400'}
@@ -88,20 +118,14 @@ export default function Home() {
                         </Stack>
                     </Stack>
                 </Container>
-            </Box>
-            <Box>
-                <BasicStatistics />
-            </Box>
-        </Box>
     )
 }
-
 
 interface StatsCardProps {
     title: string
     stat: string
     icon: ReactNode
-  }
+}
 
 function StatsCard(props: StatsCardProps) {
     const { title, stat, icon } = props
@@ -112,7 +136,8 @@ function StatsCard(props: StatsCardProps) {
             shadow={'xl'}
             border={'1px solid'}
             borderColor={useColorModeValue('gray.800', 'gray.500')}
-            rounded={'lg'}>
+            rounded={'lg'}
+            zIndex={-1}>
             <Flex justifyContent={'space-between'}>
                 <Box pl={{ base: 2, md: 4 }}>
                     <StatLabel fontWeight={'medium'} isTruncated>
@@ -189,3 +214,178 @@ const stats = [
         ),
     },
 ]
+
+interface PriceWrapperProps {
+    children: React.ReactNode
+}
+
+function PriceWrapper(props: PriceWrapperProps) {
+    const { children } = props
+
+    return (
+        <Box
+            mb={4}
+            shadow="base"
+            borderWidth="1px"
+            alignSelf={{ base: 'center', lg: 'flex-start' }}
+            borderColor={useColorModeValue('gray.200', 'gray.500')}
+            borderRadius={'xl'}
+            background={'white'}>
+            {children}
+        </Box>
+    )
+}
+
+function ThreeTierPricing() {
+    return (
+        <Box py={12} background={'black'} zIndex={-1}>
+            <VStack spacing={2} textAlign="center">
+                <Heading as="h1" fontSize="4xl" color="white">
+                    Wybierz ofertę dla siebie
+                </Heading>
+                <Text fontSize="lg" color={'gray.500'}>
+                    Oto dwa najczęściej wybierane rodzaje aplikacji, posiadamy również plan indywidualny.
+                </Text>
+            </VStack>
+            <Stack
+                direction={{ base: 'column', md: 'row' }}
+                textAlign="center"
+                justify="center"
+                spacing={{ base: 4, lg: 10 }}
+                py={10}>
+                <PriceWrapper>
+                    <Box py={4} px={12} zIndex={-1}>
+                        <Text fontWeight="500" fontSize="2xl">
+                            Wordpress
+                        </Text>
+                        <HStack justifyContent="center">
+                            <Text fontSize="3xl" color="gray.500">
+                                od
+                            </Text>
+                            <Text fontSize="5xl" fontWeight="900">
+                                790
+                            </Text>
+                            <Text fontSize="3xl" fontWeight="600">
+                                zł
+                            </Text>
+                        </HStack>
+                    </Box>
+                    <VStack
+                        bg={useColorModeValue('gray.50', 'gray.700')}
+                        py={4}
+                        borderBottomRadius={'xl'}>
+                        <List spacing={3} textAlign="start" px={12}>
+                            <ListItem>
+                                <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                Proste w obsłudze
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                Krótki czas realizacji
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                Dostępne rozwiązania E-Commerce
+                            </ListItem>
+                        </List>
+                        <Box w="80%" pt={7}>
+                            <Button w="full" colorScheme="red" variant="outline">
+                                Zapytaj o ofertę
+                            </Button>
+                        </Box>
+                    </VStack>
+                </PriceWrapper>
+
+                <PriceWrapper>
+                    <Box>
+                        <Box py={4} px={12}>
+                            <Text fontWeight="500" fontSize="2xl">
+                                React.js
+                            </Text>
+                            <HStack justifyContent="center">
+                                <Text fontSize="3xl" color="gray.500">
+                                    od
+                                </Text>
+                                <Text fontSize="5xl" fontWeight="900">
+                                    1500
+                                </Text>
+                                <Text fontSize="3xl" fontWeight="600">
+                                    zł
+                                </Text>
+                            </HStack>
+                        </Box>
+                        <VStack
+                            bg={useColorModeValue('gray.50', 'gray.700')}
+                            py={4}
+                            borderBottomRadius={'xl'}>
+                            <List spacing={3} textAlign="start" px={12}>
+                                <ListItem>
+                                    <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                    Skrojone pod klienta
+                                </ListItem>
+                                <ListItem>
+                                    <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                    Dostępne rozwiązania E-Commerce
+                                </ListItem>
+                                <ListItem>
+                                    <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                    100% Bezpieczne
+                                </ListItem>
+                                <ListItem>
+                                    <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                    Nowoczesny design
+                                </ListItem>
+                                <ListItem>
+                                    <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                    Niezawodne i szybkie
+                                </ListItem>
+                            </List>
+                            <Box w="80%" pt={7}>
+                                <Button w="full" colorScheme="red">
+                                    Zapytaj o ofertę
+                                </Button>
+                            </Box>
+                        </VStack>
+                    </Box>
+                </PriceWrapper>
+                <PriceWrapper>
+                    <Box py={4} px={12} zIndex={-1}>
+                        <Text fontWeight="500" fontSize="2xl">
+                            Plan indywidualny
+                        </Text>
+                        <HStack justifyContent="center">
+                            <Text fontSize="3xl" fontWeight="600">
+                                Cena zależna <br />
+                                od zlecenia
+                            </Text>
+                        </HStack>
+                    </Box>
+                    <VStack
+                        bg={useColorModeValue('gray.50', 'gray.700')}
+                        py={4}
+                        borderBottomRadius={'xl'}>
+                        <List spacing={3} textAlign="start" px={12}>
+                            <ListItem>
+                                <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                Spełniony dowolny wymóg klienta
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                Technologia dobrana pod projekt
+                            </ListItem>
+                            <ListItem>
+                                <ListIcon as={FaCheckCircle} mr={1} color="green.500" />
+                                Szybkość i niezawodność
+                            </ListItem>
+                        </List>
+                        <Box w="80%" pt={7}>
+                            <Button w="full" colorScheme="red" variant="outline">
+                                Zapytaj o ofertę
+                            </Button>
+                        </Box>
+                    </VStack>
+                </PriceWrapper>
+            </Stack>
+        </Box>
+    )
+}
