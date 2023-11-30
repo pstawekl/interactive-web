@@ -1,0 +1,32 @@
+.ie-home {
+    width: 100%;
+    height: 100%;
+    padding: 0 !important;
+
+    &-banner {
+        height: 800px;
+        &-left {
+            background-image: url('../../Images/ie-banner-left.webp');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        &-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: black;
+        }
+
+        &-right {
+            background-image: url('../../Images/ie-banner-right.webp');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: right;
+        }
+
+        &-arrow-down {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+import { LuArrowUpSquare } from "react-icons/lu";
+import { TiArrowSortedUp } from "react-icons/ti";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const ScrollButton = () => {
+  const toggleVisible = () => {
+    const scrolled = document.documentElement.scrollTop;
+    if (scrolled > 200) {
+      document.getElementsByClassName('scroll-button-icon')[0]?.classList.add('slide-in');
+    }
+    else if (scrolled <= 200) {
+      document.getElementsByClassName('scroll-button-icon')[0]?.classList.remove('slide-in');
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  window.addEventListener('scroll', toggleVisible);
+
+  return (
+    <div className='scroll-button has-text-info'>
+      <TiArrowSortedUp className='scroll-button-icon' onClick={scrollToTop} />
+    </div>
+  );
+}
+
+export default ScrollButton; 

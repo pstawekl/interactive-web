@@ -1,0 +1,250 @@
+@import "../variables.scss";
+
+.tes-home {
+    display: flex;
+    flex-direction: column;
+
+    &__banner {
+        display: flex;
+        overflow: hidden;
+        background-image: url("../../Images/banner.webp");
+        background-size: cover;
+        background-position: bottom;
+        height: 800px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-right: 20%;
+        animation: slideFromTop 1s ease-in-out forwards;
+
+        .title,
+        .subtitle,
+        span,
+        h1,
+        p,
+        button {
+            animation: slideFromBottom 2s ease-in-out forwards;
+        }
+
+        .title {
+            letter-spacing: 5px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            letter-spacing: 8px;
+            font-weight: 700;
+        }
+
+        span,
+        h1,
+        p {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            max-width: 230px;
+        }
+    }
+
+    &__description {
+        .left {
+            animation: slideFromLeft 1s ease-in-out;
+        }
+
+        .right {
+            animation: slideFromRight 1s ease-in-out;
+        }
+
+        @include desktop {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding-left: 20% !important;
+            padding-right: 20% !important;
+
+            &-item-container {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+            }
+
+            &-item {
+                display: flex;
+                flex-direction: row;
+                padding: 20px 0;
+
+                &-left {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    width: 50%;
+                    text-align: right;
+                }
+
+                &-right {
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                    width: 50%;
+                }
+
+                &-bottom-bar {
+                    display: flex;
+                    align-self: center;
+                    width: 200px;
+                    height: 1px;
+                    background-color: #2baef7;
+                }
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    max-width: 200px;
+                    border-radius: 50%;
+                    transition: 0.5s;
+                    filter: grayscale(100%);
+                    opacity: 0;
+                    animation: fadeIn 1s ease-in-out forwards;
+                }
+
+                img:hover {
+                    transform: scale3d(1.1, 1.1, 1.1);
+                    filter: grayscale(0);
+                }
+            }
+
+            &-item:last-child {
+                &-bottom-bar {
+                    height: 0;
+                }
+            }
+        }
+
+        @include mobile {
+            img {
+                display: none;
+            }
+
+            &-item {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 0;
+
+                &-container {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+
+                    &:last-child {
+                        .tes-home__description-item-bottom-bar {
+                            height: 0 !important;
+                        }
+                    }
+                }
+
+                &-left {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    text-align: center;
+                    padding: 0 !important;
+                }
+
+                &-right {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: 0 !important;
+                }
+
+                &-bottom-bar {
+                    display: flex;
+                    align-self: center;
+                    justify-content: center;
+                    width: 200px;
+                    height: 1px;
+                    background-color: #2baef7;
+                }
+            }
+        }
+
+        @media (max-width: #{1400px - 1px}) {        
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
+        @include tablet {
+            img {
+                display: none;
+            }
+
+            &-item {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 0;
+
+                &-container {
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+
+                    &:last-child {
+                        .tes-home__description-item-bottom-bar {
+                            height: 0 !important;
+                        }
+                    }
+                }
+
+                &-left {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    align-items: center;
+                    width: 100%;
+                    text-align: center;
+                    padding: 0 !important;
+                }
+
+                &-right {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                    width: 100%;
+                    padding: 0 !important;
+                }
+
+                &-bottom-bar {
+                    display: flex;
+                    align-self: center;
+                    justify-content: center;
+                    width: 200px;
+                    height: 1px;
+                    background-color: #2baef7;
+                }
+            }
+        }
+    }
+
+    &__dialouge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .hero-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .subtitle {
+            max-width: 1000px !important;
+        }
+    }
+}

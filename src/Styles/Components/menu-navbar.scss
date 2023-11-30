@@ -1,0 +1,31 @@
+@import "../variables.scss";
+
+.ie-navbar {
+    width: 100%;
+    &-logo {
+        img {
+            transition: 0.5s;
+            height: 50px !important;
+
+            &:hover {
+                filter: brightness(1.5);
+                cursor: pointer;
+            }
+        }
+    }
+
+    &-long-logo {
+        transition: 0.5s;
+
+        &:hover {
+            filter: brightness(1.5);
+            cursor: pointer;
+        }
+        @include desktop {
+            width: 70%;
+        }
+        @include mobile {
+            width: 50%;
+        }
+    }
+}

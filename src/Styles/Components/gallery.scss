@@ -1,0 +1,30 @@
+.gallery {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10%;
+    .column.is-4 {
+        .card {
+            .card-image {
+                transition: 0.7s;
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale3d(1.05, 1.05, 1.05);
+                    filter: brightness(0.5);
+                }
+            }
+        }
+    }
+
+    @include mobile {
+        flex-direction: column;
+    }
+}
+
+.yarl__navigation_next,
+.yarl__navigation_prev {
+    display: none !important;
+}
