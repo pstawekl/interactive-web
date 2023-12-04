@@ -66,3 +66,13 @@
         transform: translateY(200%);
     }
 }
+
+@keyframes expandFromCenter {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

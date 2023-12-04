@@ -1,0 +1,62 @@
+.chakra-modal {
+    &__content-container {
+        background: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: expandFromCenter 0.3s ease-in-out;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__close-btn {
+        display: flex;
+        justify-content: flex-end !important;
+        padding: 0 20px;
+        transition: 0.5s;
+        &:hover {
+            color: gray;
+        }
+    }
+
+    &__body {
+        display: flex;
+        justify-content: center;
+        min-height: 85vh;
+        padding: 20px;
+        margin: 0 50px;
+        border-radius: 15px;
+        background: black;
+        color: white;
+
+        .modal-offer {
+            display: flex !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+
+            &-banner {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+            }
+
+            &-content {
+                display: flex;
+                max-width: 50vw;
+            }
+        }
+    }
+
+    &__footer {
+        display: flex;
+        padding: 20px;
+    }
+}

@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Grid, GridItem, HStack, Heading, List, ListIcon, ListItem, SimpleGrid, Stack, Stat, StatLabel, StatNumber, Tag, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Grid, GridItem, HStack, Heading, List, ListIcon, ListItem, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, SimpleGrid, Stack, Stat, StatLabel, StatNumber, Text, VStack, useColorModeValue, useDisclosure } from "@chakra-ui/react";
 import { TAGNAME } from "../App";
 import Logo from '../Images/logo.webp';
 import { Player } from '@lordicon/react';
@@ -7,6 +7,7 @@ import { FiServer } from 'react-icons/fi'
 import { CgPerformance } from "react-icons/cg";
 import { IoSearch } from "react-icons/io5";
 import { FaCheckCircle } from "react-icons/fa";
+import ModalOffer from "../Components/OfferModal";
 
 const ArrowDownIcon = require('./../Assets/LordIcons/system-solid-12-arrow-down.json')
 
@@ -54,21 +55,21 @@ export default function Home() {
             <Box className={TAGNAME + "-home-feature"} bg={'black'}>
                 <Features />
             </Box>
-            <Box className={TAGNAME+"-home-hero"} zIndex={-1}>
+            <Box className={TAGNAME + "-home-hero"} zIndex={-1000} pb={5}>
                 <BasicStatistics />
                 <div className={TAGNAME + '-home-arrow-down'}
-                                onMouseEnter={() => setIsIconHover(true)}
-                                onMouseLeave={() => setIsIconHover(false)}
-                                onClick={() => document.getElementsByClassName("ie-home-offer")[0].scrollIntoView({ behavior: "smooth" })}
-                                style={{display: 'flex', justifyContent: 'center', paddingBottom: 20, zIndex: '1'}}>
-                                <Player
-                                    ref={playerRef}
-                                    icon={ArrowDownIcon}
-                                    size={50}
-                                    colorize="true"
-                                    renderMode="SOFTWARE"
-                                />
-                            </div>
+                    onMouseEnter={() => setIsIconHover(true)}
+                    onMouseLeave={() => setIsIconHover(false)}
+                    onClick={() => document.getElementsByClassName("ie-home-offer")[0].scrollIntoView({ behavior: "smooth" })}
+                    style={{ display: 'flex', justifyContent: 'center', paddingBottom: 20, zIndex: '1' }}>
+                    <Player
+                        ref={playerRef}
+                        icon={ArrowDownIcon}
+                        size={50}
+                        colorize="true"
+                        renderMode="SOFTWARE"
+                    />
+                </div>
             </Box>
             <Box className={TAGNAME + "-home-offer"}>
                 <ThreeTierPricing />
@@ -80,44 +81,44 @@ export default function Home() {
 function Features() {
     return (
         <Container zIndex={10}>
-                    <Stack direction={{ base: 'column', lg: 'row' }} justify={"center"}>
-                        <Stack
-                            color={'gray.400'}
-                            justify={'center'}
-                            py={{ base: 4, md: 20 }}>
-                            <Box mb={{ base: 8, md: 20 }}>
-                                <Text
-                                    fontFamily={'heading'}
-                                    fontWeight={700}
-                                    textTransform={'uppercase'}
-                                    mb={3}
-                                    fontSize={'xl'}
-                                    color={'gray.500'}>
-                                    Technologia
+            <Stack direction={{ base: 'column', lg: 'row' }} justify={"center"}>
+                <Stack
+                    color={'gray.400'}
+                    justify={'center'}
+                    py={{ base: 4, md: 20 }}>
+                    <Box mb={{ base: 8, md: 20 }}>
+                        <Text
+                            fontFamily={'heading'}
+                            fontWeight={700}
+                            textTransform={'uppercase'}
+                            mb={3}
+                            fontSize={'xl'}
+                            color={'gray.500'}>
+                            Technologia
+                        </Text>
+                        <Heading color={'white'} mb={5} fontSize={{ base: '3xl', md: '5xl' }}>
+                            Idziemy z duchem czasu
+                        </Heading>
+                        <Text fontSize={'xl'} color={'gray.400'}>
+                            Nasze aplikacje internetowe są tworzone z wykorzystaniem najnowszych technologii, dzięki czemu są szybkie i bezpieczne.
+                        </Text>
+                    </Box>
+
+                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+                        {stats.map((stat) => (
+                            <Box key={stat.title}>
+                                <Text fontFamily={'heading'} fontSize={'3xl'} color={'white'} mb={3}>
+                                    {stat.title}
                                 </Text>
-                                <Heading color={'white'} mb={5} fontSize={{ base: '3xl', md: '5xl' }}>
-                                    Idziemy z duchem czasu
-                                </Heading>
                                 <Text fontSize={'xl'} color={'gray.400'}>
-                                    Nasze aplikacje internetowe są tworzone z wykorzystaniem najnowszych technologii, dzięki czemu są szybkie i bezpieczne.
+                                    {stat.content}
                                 </Text>
                             </Box>
-
-                            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-                                {stats.map((stat) => (
-                                    <Box key={stat.title}>
-                                        <Text fontFamily={'heading'} fontSize={'3xl'} color={'white'} mb={3}>
-                                            {stat.title}
-                                        </Text>
-                                        <Text fontSize={'xl'} color={'gray.400'}>
-                                            {stat.content}
-                                        </Text>
-                                    </Box>
-                                ))}
-                            </SimpleGrid>
-                        </Stack>
-                    </Stack>
-                </Container>
+                        ))}
+                    </SimpleGrid>
+                </Stack>
+            </Stack>
+        </Container>
     )
 }
 
@@ -237,6 +238,8 @@ function PriceWrapper(props: PriceWrapperProps) {
 }
 
 function ThreeTierPricing() {
+    const { isOpen: isWordpressOpen, onOpen: onWordpressOpen, onClose: onWordpressClose } = useDisclosure()
+
     return (
         <Box py={12} background={'black'} zIndex={-1}>
             <VStack spacing={2} textAlign="center">
@@ -289,9 +292,7 @@ function ThreeTierPricing() {
                             </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
-                            <Button w="full" colorScheme="red" variant="outline">
-                                Zapytaj o ofertę
-                            </Button>
+                            <ModalOffer modalType='wordpress' />
                         </Box>
                     </VStack>
                 </PriceWrapper>
@@ -341,9 +342,7 @@ function ThreeTierPricing() {
                                 </ListItem>
                             </List>
                             <Box w="80%" pt={7}>
-                                <Button w="full" colorScheme="red">
-                                    Zapytaj o ofertę
-                                </Button>
+                                <ModalOffer modalType="react"/>
                             </Box>
                         </VStack>
                     </Box>
@@ -379,9 +378,7 @@ function ThreeTierPricing() {
                             </ListItem>
                         </List>
                         <Box w="80%" pt={7}>
-                            <Button w="full" colorScheme="red" variant="outline">
-                                Zapytaj o ofertę
-                            </Button>
+                            <ModalOffer modalType="individual"/>
                         </Box>
                     </VStack>
                 </PriceWrapper>
